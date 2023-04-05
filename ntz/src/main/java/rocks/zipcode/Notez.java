@@ -1,5 +1,7 @@
 package rocks.zipcode;
 
+import java.util.ArrayList;
+
 /**
  * ntz main command.
  */
@@ -13,7 +15,7 @@ public final class Notez {
     /**
      * Says hello to the world.
      *
-     * @param args The arguments of the program.
+     * @param argv The arguments of the program.
      */
     public static void main(String argv[]) {
         boolean _debug = true;
@@ -47,7 +49,14 @@ public final class Notez {
         } else {
             if (argv[0].equals("-r")) {
                 ntzEngine.addToCategory("General", argv);
-            } // this should give you an idea about how to TEST the Notez engine
+            }else if(argv[0].equals("-c")){
+                ntzEngine.addToCategory(argv[1], argv);
+            }else if(argv[0].equals("-f")){
+                ntzEngine.removeCategory(argv[1], Integer.valueOf(argv[2]));
+            }else if(argv[0].equals("-e")){
+                ntzEngine.removeCategory(argv[1], Integer.valueOf(argv[2]));
+                ntzEngine.addToCategory(argv[1], argv[3]);
+            }
               // without having to spend lots of time messing with command line arguments.
         }
         /*
@@ -56,8 +65,16 @@ public final class Notez {
         ntzEngine.saveDatabase();
     }
 
+    private void removeCategory(String string, Integer index) {
+        filemap.get(string).remove(index-1);
+    }
+
     private void addToCategory(String string, String[] argv) {
-        filemap.get(string).add(argv[1]);
+        if(filemap.containsKey(string)){
+            filemap.get(string).add(argv[argv.length-1]);
+        }else{
+            filemap.put(string, new NoteList(argv[argv.length-1]));
+        }
     }
 
     private void saveDatabase() {
