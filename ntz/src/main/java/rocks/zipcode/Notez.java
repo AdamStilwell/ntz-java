@@ -54,19 +54,18 @@ public final class Notez {
             }else if(argv[0].equals("-f")){
                 ntzEngine.removeCategory(argv[1], Integer.valueOf(argv[2]));
             }else if(argv[0].equals("-e")){
-                ntzEngine.removeCategory(argv[1], Integer.valueOf(argv[2]));
-                ntzEngine.addToCategory(argv[1], argv[3]);
+                ntzEngine.replaceNote(argv[1], Integer.valueOf(argv[2]), argv[3]);
             }
-              // without having to spend lots of time messing with command line arguments.
         }
-        /*
-         * what other method calls do you need here to implement the other commands??
-         */
         ntzEngine.saveDatabase();
     }
 
     private void removeCategory(String string, Integer index) {
         filemap.get(string).remove(index-1);
+    }
+
+    private void replaceNote(String string, Integer index, String newMsg){
+        filemap.get(string).set(index-1, newMsg);
     }
 
     private void addToCategory(String string, String[] argv) {
