@@ -12,7 +12,7 @@ public final class Notez {
     }
     /**
      * Says hello to the world.
-     * 
+     *
      * @param args The arguments of the program.
      */
     public static void main(String argv[]) {
@@ -32,14 +32,14 @@ public final class Notez {
 
         /*
          * You will spend a lot of time right here.
-         * 
+         *
          * instead of loadDemoEntries, you will implement a series
          * of method calls that manipulate the Notez engine.
          * See the first one:
          */
-        ntzEngine.loadDemoEntries();
+        //ntzEngine.loadDemoEntries();
 
-        ntzEngine.saveDatabase();
+
 
         if (argv.length == 0) { // there are no commandline arguments
             //just print the contents of the filemap.
@@ -53,10 +53,11 @@ public final class Notez {
         /*
          * what other method calls do you need here to implement the other commands??
          */
-
+        ntzEngine.saveDatabase();
     }
 
     private void addToCategory(String string, String[] argv) {
+        filemap.get(string).add(argv[1]);
     }
 
     private void saveDatabase() {
